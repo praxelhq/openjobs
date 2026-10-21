@@ -14,7 +14,7 @@ uv run pytest -q
 
 The sample data is fictional. The import writes `data/jobs.sqlite` by default; set `OPENJOBS_DB` to an absolute path to isolate your test database. Run `uv run uvicorn openjobs.api:app --host 127.0.0.1` for the local-index API, or `uv run openjobs-mcp` for stdio MCP. The [local API/MCP recipes](docs/API_AND_MCP.md) show what each command should return. The separate [Praxy Jobs live-search path](docs/PRAXY_LIVE.md) requires your own activated key. CI also builds the Docker image and runs a smoke check.
 
-For a change under [`web/`](web/README.md), use Node 22+ and run `npm ci`, `npm run test`, `npm run typecheck`, and `npm run build` from that directory. Local live search additionally needs a dedicated consumer-search service key and shared Redis; the web README describes the gated setup. Unit tests and a successful build do not establish that the public domain is live.
+For a change under [`web/`](web/README.md), use Node 22+ and run `npm ci`, `npm run test`, `npm run typecheck`, and `npm run build` from that directory. Local live search additionally needs a dedicated persisted first-party consumer key and shared Redis; the web README describes the exact scope and gated setup. Unit tests and a successful build do not establish that the public domain is live.
 
 ## Choose a focused change
 

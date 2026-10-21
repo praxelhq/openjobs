@@ -4,7 +4,7 @@ The public search site in this repository. It browses real listings from the [Pr
 
 ## Run locally
 
-Requires Node 22+, an active Praxy Jobs service key with consumer-search access, and shared Redis.
+Requires Node 22+, shared Redis, and a distinct, active Praxy Jobs first-party consumer key. Provision that persisted key only after the production consumer-search API accepts consumer-kind credentials. Its scope must be `key_kind=consumer`, `account_id=praxy-web`, and `channel=candidate-search`. The paid developer API uses `key_kind=service` keys; those keys, the existing landing-site key, and developer `PRAXY_JOBS_KEY` values must not be used for this anonymous site.
 
 ```bash
 cd web
@@ -25,9 +25,9 @@ Build from `web/Dockerfile` and expose port 3000. The proposed canonical hostnam
 
 | Variable | Purpose |
 | --- | --- |
-| `OPENJOBS_CONSUMER_SEARCH_KEY` | Server-only service key authorized for consumer search. Prefer a dedicated scoped key. |
+| `OPENJOBS_CONSUMER_SEARCH_KEY` | Server-only, persisted first-party consumer key with `key_kind=consumer`, `account_id=praxy-web`, and `channel=candidate-search`. Required for public launch; never use a paid service key or the existing landing-site key. |
 | `OPENJOBS_REDIS_URL` | Shared Redis URL across all web replicas; required. |
-| `OPENJOBS_GLOBAL_LIMIT_PER_MINUTE` | Upstream-protection cap. Defaults to 60 while sharing another first-party key; maximum 420 with a dedicated key. |
+| `OPENJOBS_GLOBAL_LIMIT_PER_MINUTE` | Upstream-protection cap. Defaults to 60; maximum 420. Keep the conservative default until observed traffic and upstream capacity justify a change. |
 | `OPENJOBS_GLOBAL_LIMIT_PER_DAY` | Shared cap on upstream cache misses per UTC day. Defaults to 5,000; clamped to 1–20,000. Tune after observing real traffic and upstream capacity. |
 | `OPENJOBS_PUBLIC_LAUNCH_ENABLED` | Set to `1` after health and a real search pass. Defaults off. |
 | `PUBLIC_SITE_URL` | Verified HTTPS site origin, such as `https://openjobs.praxyjobs.com/`. If unset, canonical URL is omitted and pages are `noindex`. Preview domains remain `noindex` even when set. Set the branded origin only after live search passes. |
@@ -36,7 +36,7 @@ Use a trusted edge that **overwrites `X-Real-IP`** with the actual visitor IP. R
 
 The server only calls `https://praxyjobs.com/v1/internal/consumer/jobs/search` with allowlisted `q`, `country`, `remote`, and a fixed 24-result limit. The homepage starts with an `engineer` search in India, a live-tested query; all searches require text to avoid an expensive unfiltered scan. Visitors can edit the role and choose any country. Current keyword searches return a selection of up to 24 matches without a continuation cursor; the page offers a link to continue on Praxy. If upstream supplies a cursor for a query, short-lived Redis page tokens bind it to the filters and allow up to four pages (96 jobs). Callers cannot submit raw upstream cursors. The upstream request has an 8-second timeout, rejects redirects, and caps response JSON at 1 MB. The public response contains only card fields needed for search. The source label is the original application hostname, not an unsupported claim about a specific ATS or a live URL check. `first_seen` is labeled as first seen by Praxy Jobs, not verified still open.
 
-The public website's data display is governed by the [Praxy Jobs data license](https://praxyjobs.com/data-license); this repository's MIT license applies to code. Do not mirror the full job corpus or expose the service key.
+The public website's data display is governed by the [Praxy Jobs data license](https://praxyjobs.com/data-license); this repository's MIT license applies to code. Do not mirror the full job corpus or expose the consumer key.
 
 ## Verify
 
@@ -50,4 +50,4 @@ npm run build
 docker build -t openjobs-web .
 ```
 
-After deployment, verify `/api/health`, a real search, an original application link, a second page when a cursor exists, rate limiting, and the off-flag 404 behavior before adding the public DNS record. An HTTP 200 alone does not prove the search capability works.
+After the scoped consumer key is verified against the production consumer-search API, deploy and verify `/api/health`, a real search, an original application link, a second page when a cursor exists, rate limiting, and the off-flag 404 behavior before adding the public DNS record. An HTTP 200 alone does not prove the search capability works.
