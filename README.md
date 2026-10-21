@@ -6,6 +6,10 @@ OpenJobs is an open-source job discovery project from [Praxy Jobs](https://praxy
 
 [Search real jobs today ↗](https://praxy.me/jobs) · [Try the repository](#try-openjobs-in-one-minute) · [Use the Praxy Jobs API](#search-live-jobs-from-the-cli-or-mcp) · [Contribute](CONTRIBUTING.md)
 
+![Local OpenJobs search for product designer, showing real Praxy Jobs results and original application links](docs/assets/search-preview.jpg)
+
+*Local product preview using Praxy Jobs results. Public site deployment pending.*
+
 > **Developer preview — October 22, 2026:** The CLI, local REST API, MCP server, and [`web/` source](web/README.md) work. The OpenJobs website is **not deployed yet**; [Praxy's existing search](https://praxy.me/jobs) is the live option. The keyless sample contains eight fictional jobs, and direct live CLI/MCP search needs an activated Praxy Jobs API key. See the [release checklist](docs/RELEASE_CHECKLIST.md) for the remaining website checks.
 
 ## What this project gives you
