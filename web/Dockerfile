@@ -10,6 +10,7 @@ ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0
 WORKDIR /app
 COPY --from=build /app/.next/standalone ./
 COPY --from=build /app/.next/static ./.next/static
+COPY --from=build /app/public ./public
 RUN addgroup -S openjobs && adduser -S openjobs -G openjobs && chown -R openjobs:openjobs /app
 USER openjobs
 EXPOSE 3000
