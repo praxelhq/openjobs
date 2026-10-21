@@ -1,46 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">OpenJobs — find the role, go to the employer</title>
-  <desc id="desc">Cream and forest-green OpenJobs social preview with its circle-arrow mark and an original-application promise.</desc>
-  <defs>
-    <pattern id="grain" width="36" height="36" patternUnits="userSpaceOnUse">
-      <circle cx="1" cy="1" r=".7" fill="#143f36" opacity=".08"/>
-    </pattern>
-    <clipPath id="canvas"><rect width="1200" height="630"/></clipPath>
-  </defs>
+  <desc id="desc">An open-source job discovery preview in the Praxy candidate app's white, ink, and petrol blue design system.</desc>
+  <rect width="1200" height="630" fill="#FCFDFC"/>
+  <path d="M0 480H1200V630H0Z" fill="#F3F6F7"/>
+  <path d="M72 130H1128" stroke="#D9E2E5" stroke-width="2"/>
 
-  <g clip-path="url(#canvas)">
-    <rect width="1200" height="630" fill="#f6f7f2"/>
-    <rect width="1200" height="630" fill="url(#grain)"/>
-    <path d="M0 490H1200V630H0Z" fill="#143f36"/>
-    <path d="M71 125H1129" stroke="#dce2dc" stroke-width="2"/>
-
-    <g transform="translate(71 53)" fill="none" stroke="#143f36" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="31" cy="31" r="29" stroke-width="3.5"/>
-      <path d="M20 42 42 20M27 20h15v15" stroke-width="4"/>
-    </g>
-    <text x="152" y="99" fill="#172c28" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" letter-spacing="-2.8">open<tspan font-weight="900">jobs</tspan></text>
-    <text x="1129" y="91" text-anchor="end" fill="#456556" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="2.2">OPEN SEARCH · ORIGINAL APPLICATIONS</text>
-
-    <g font-family="Arial, Helvetica, sans-serif" font-weight="700" letter-spacing="-4">
-      <text x="70" y="255" fill="#172c28" font-size="86">Find the role.</text>
-      <text x="70" y="355" fill="#427768" font-size="86">Go to the employer.</text>
-    </g>
-    <text x="73" y="423" fill="#5c6f66" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400">Real jobs. Clear sources. Free to browse.</text>
-
-    <g transform="translate(1040 316)">
-      <circle r="177" fill="none" stroke="#143f36" stroke-opacity=".07" stroke-width="65"/>
-      <circle r="144" fill="none" stroke="#143f36" stroke-opacity=".12" stroke-width="2"/>
-      <circle r="102" fill="#e8efdf" stroke="#143f36" stroke-opacity=".18" stroke-width="2"/>
-      <circle r="65" fill="#143f36"/>
-      <path d="M-29 29 29-29M-8-29h37V8" fill="none" stroke="#d8f77c" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="0" cy="-144" r="6" fill="#64b168"/>
-      <circle cx="144" cy="0" r="6" fill="#64b168"/>
-      <circle cx="-144" cy="0" r="6" fill="#64b168"/>
-    </g>
-
-    <rect x="71" y="533" width="186" height="54" rx="27" fill="#d8f77c"/>
-    <text x="164" y="567" text-anchor="middle" fill="#143f36" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" letter-spacing="1.4">OPEN SOURCE</text>
-    <text x="284" y="567" fill="#eff6ea" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="500">Search from Praxy Jobs. Apply at the source.</text>
-    <text x="1128" y="568" text-anchor="end" fill="#b8cebd" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700">openjobs.praxyjobs.com</text>
+  <g transform="translate(72 54)">
+    <rect width="54" height="54" rx="14" fill="#0A5975"/>
+    <circle cx="27" cy="27" r="17" fill="none" stroke="#FCFDFC" stroke-width="2.5"/>
+    <path d="M19 35 35 19M24 19h11v11" fill="none" stroke="#FCFDFC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="72" y="38" fill="#15242B" font-family="Outfit, Avenir Next, Arial, sans-serif" font-size="38" font-weight="700" letter-spacing="-1.7">openjobs</text>
   </g>
+  <text x="1128" y="91" text-anchor="end" fill="#56646B" font-family="Outfit, Avenir Next, Arial, sans-serif" font-size="16" font-weight="600" letter-spacing="1.2">BY PRAXY JOBS</text>
+
+  <g font-family="Outfit, Avenir Next, Arial, sans-serif" font-weight="700" letter-spacing="-3.3">
+    <text x="70" y="270" fill="#15242B" font-size="83">Find the role.</text>
+    <text x="70" y="370" fill="#0A5975" font-size="83">Go to the employer.</text>
+  </g>
+  <text x="73" y="426" fill="#56646B" font-family="Outfit, Avenir Next, Arial, sans-serif" font-size="24" font-weight="400">Open-source job discovery. Original application links.</text>
+
+  <g transform="translate(72 518)" font-family="Outfit, Avenir Next, Arial, sans-serif">
+    <rect width="234" height="62" rx="14" fill="#E7F1F4"/>
+    <circle cx="33" cy="31" r="14" fill="#0A5975"/>
+    <path d="M28 31h10m-5-5 5 5-5 5" fill="none" stroke="#FCFDFC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="59" y="39" fill="#0A5975" font-size="19" font-weight="700">OPEN SOURCE</text>
+    <text x="265" y="38" fill="#15242B" font-size="21" font-weight="500">See the source. Apply at the source.</text>
+  </g>
+  <text x="1128" y="556" text-anchor="end" fill="#56646B" font-family="Outfit, Avenir Next, Arial, sans-serif" font-size="17" font-weight="500">github.com/praxelhq/openjobs</text>
 </svg>

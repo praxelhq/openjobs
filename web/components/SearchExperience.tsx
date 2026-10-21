@@ -1,6 +1,7 @@
 "use client";
 
 import { type FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import type { PublicJob, SearchPage } from "@/lib/search";
 import { RequestGeneration } from "@/lib/request-generation";
@@ -67,14 +68,13 @@ function JobCard({ job }: { job: PublicJob }) {
   const meta = [...new Set([job.location, job.remote === true ? "Remote" : null, workplaceLabel(job.workplace), job.employmentType[0]?.replaceAll("_", " ")].filter((item): item is string => Boolean(item)))];
   return <article className="job-row">
     <div className="job-main">
-      <div className="job-company"><span className="company-marker" aria-hidden="true" />{job.organization}</div>
+      <div className="job-company"><span className="company-marker" aria-hidden="true">{job.organization.charAt(0).toUpperCase()}</span>{job.organization}</div>
       <h3><a href={job.applyUrl} target="_blank" rel="noopener noreferrer">{job.title}<span className="sr-only"> at {job.organization}, original application opens in a new tab</span></a></h3>
-      {meta.length > 0 && <div className="job-meta">{meta.map((item) => <span key={item}>{item}</span>)}</div>}
+      {(posted || firstSeen || meta.length > 0) && <div className="job-meta">{posted ? <span className="job-date">Posted {posted}</span> : firstSeen ? <span className="job-date">First seen {firstSeen}</span> : null}{meta.map((item) => <span key={item}>{item}</span>)}</div>}
       {job.descriptionSnippet && <p className="job-snippet">{job.descriptionSnippet}</p>}
       <div className="job-source">
         <span className="source-dot" aria-hidden="true" />
         <span>Original listing: <a href={job.applyUrl} target="_blank" rel="noopener noreferrer">{job.sourceHost}</a></span>
-        {posted ? <span>Posted {posted}</span> : firstSeen ? <span>First seen by Praxy Jobs {firstSeen}</span> : null}
       </div>
     </div>
     <a className="apply-link" href={job.applyUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open original application for ${job.title} at ${job.organization}`}>
@@ -184,7 +184,7 @@ export function SearchExperience() {
 
   return <div className="site-wrap">
     <header className="site-header page-shell">
-      <a href="/" className="brand" aria-label="OpenJobs home"><svg className="brand-mark" viewBox="0 0 54 54" fill="none" aria-hidden="true"><circle cx="27" cy="27" r="24" stroke="currentColor" strokeWidth="3"/><path d="M18 36 36 18M24 18h12v12" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/></svg><span>open<span className="brand-strong">jobs</span></span></a>
+      <a href="/" className="brand" aria-label="OpenJobs by Praxy home"><Image className="praxy-wordmark" src="/praxy-wordmark-ink.svg" alt="Praxy" width={123} height={23} /><span className="brand-divider" aria-hidden="true"/><span className="brand-product">openjobs</span></a>
       <nav aria-label="Main navigation"><a href="https://praxyjobs.com" target="_blank" rel="noopener noreferrer">Praxy Jobs</a><a href="https://github.com/praxelhq/openjobs" target="_blank" rel="noopener noreferrer">View the code <span aria-hidden="true">↗</span></a></nav>
     </header>
 
@@ -195,7 +195,7 @@ export function SearchExperience() {
           <h1 id="hero-title">Find the role.<br/><em>Go to the employer.</em></h1>
           <p>Search jobs from Praxy Jobs, then open the original application. Free to browse. No account required.</p>
         </div>
-        <div className="hero-aside" aria-hidden="true"><span>01</span><span className="aside-line"/><span>SEARCH WITH CONTEXT</span></div>
+        <div className="hero-aside" aria-hidden="true"><span className="hero-aside-mark">↗</span><span>Original links, every time.</span></div>
       </section>
 
       <section className="search-band" aria-label="Search jobs">
@@ -211,7 +211,7 @@ export function SearchExperience() {
       </section>
 
       <section id="results" className="results page-shell" aria-live="polite">
-        <div className="results-heading"><div><div className="section-kicker">FROM PRAXY JOBS</div><h2>{active.q ? `Results for “${active.q}”` : "Browse jobs"}</h2><p>{active.country ? `Country: ${active.country}` : "Across locations"}{active.remote === "only" ? " · Remote only" : active.remote === "exclude" ? " · Excluding remote" : ""}</p></div><div className="results-counter">{loading ? "Finding roles…" : page ? `${page.jobs.length} ${page.jobs.length === 1 ? "role" : "roles"} shown` : ""}</div></div>
+        <div className="results-heading"><div><div className="section-kicker">FROM PRAXY JOBS</div><h2>{active.q ? `Results for “${active.q}”` : "Browse jobs"}</h2><p>{active.country ? `Country: ${active.country}` : "Across locations"}{active.remote === "only" ? " · Remote only" : active.remote === "exclude" ? " · Excluding remote" : ""} · Best matches</p></div><div className="results-counter">{loading ? "Finding roles…" : page ? `${page.jobs.length} ${page.jobs.length === 1 ? "role" : "roles"} shown` : ""}</div></div>
 
         {notice && <p className="search-notice" role="status">{notice}</p>}
 

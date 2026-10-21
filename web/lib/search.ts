@@ -73,6 +73,32 @@ function optional(value: unknown, max = 500): string | null {
   return typeof value === "string" && value.trim() ? value.trim().slice(0, max) : null;
 }
 
+function plainSnippet(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const text = value
+    .replace(/<\s*(script|style)\b[^>]*>[\s\S]*?<\/\s*\1\s*>/gi, " ")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/<[^>]*$/g, " ")
+    .replace(/%[A-Z][A-Z0-9_]+%/g, " ")
+    .replace(/&(#(?:x[0-9a-f]+|[0-9]+)|amp|lt|gt|quot|apos|nbsp|mdash|ndash|rsquo|lsquo|rdquo|ldquo|hellip|bull);/gi, (_entity, code: string) => {
+      if (code.startsWith("#")) {
+        const hex = code[1]?.toLowerCase() === "x";
+        const number = Number.parseInt(code.slice(hex ? 2 : 1), hex ? 16 : 10);
+        return number > 0 && number <= 0x10ffff && (number < 0xd800 || number > 0xdfff)
+          ? String.fromCodePoint(number)
+          : " ";
+      }
+      return ({ amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", mdash: "—", ndash: "–", rsquo: "’", lsquo: "‘", rdquo: "”", ldquo: "“", hellip: "…", bull: "•" } as Record<string, string>)[code.toLowerCase()] ?? " ";
+    })
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!text) return null;
+  const excerpt = text.slice(0, 320).trim();
+  if (excerpt.length <= 160 || /[.!?…]$/.test(excerpt)) return excerpt;
+  const lastSpace = excerpt.lastIndexOf(" ");
+  return lastSpace > 120 ? `${excerpt.slice(0, lastSpace)}…` : excerpt;
+}
+
 function date(value: unknown, optionalDate = false): string | null {
   if (value == null && optionalDate) return null;
   const text = required(value, 50);
@@ -113,7 +139,7 @@ export function parseConsumerPage(value: unknown): SearchPage {
       workplace: optional(item.workplace, 100),
       remote: typeof item.remote === "boolean" ? item.remote : null,
       employmentType: Array.isArray(item.employment_type) ? item.employment_type.filter((v): v is string => typeof v === "string").slice(0, 8) : [],
-      descriptionSnippet: optional(item.description_snippet, 320)
+      descriptionSnippet: plainSnippet(item.description_snippet)
     };
   });
   const nextCursor = page.next_cursor == null ? null : required(page.next_cursor, 4096);

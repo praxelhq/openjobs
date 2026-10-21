@@ -34,6 +34,25 @@ describe("public search contract", () => {
     expect(JSON.stringify(result)).not.toContain("company_logo_url");
   });
 
+  it("renders an HTML-formatted upstream snippet as readable text", () => {
+    const result = parseConsumerPage({
+      schema_version: "praxy-consumer-jobs-v1",
+      results: [{ ...upstreamCard, description_snippet: "<p><strong>Build &amp; ship</strong> tools.</p><p>Work&nbsp;with &#80;raxy&rsquo;s team.</p><em" }],
+      next_cursor: null
+    });
+    expect(result.jobs[0]?.descriptionSnippet).toBe("Build & ship tools. Work with Praxy’s team.");
+  });
+
+  it("removes source-site template placeholders and an incomplete final word", () => {
+    const lead = "Build useful products with a multidisciplinary engineering team across several markets. ";
+    const result = parseConsumerPage({
+      schema_version: "praxy-consumer-jobs-v1",
+      results: [{ ...upstreamCard, description_snippet: `%BREADCRUMB_JOB_OPENINGS% ${lead}${lead}Responsibilit` }],
+      next_cursor: null
+    });
+    expect(result.jobs[0]?.descriptionSnippet).toBe(`${lead.repeat(2).trim()}…`);
+  });
+
   it("rejects a non-HTTPS apply link or a changed upstream schema", () => {
     expect(() => parseConsumerPage({ schema_version: "praxy-consumer-jobs-v1", results: [{ ...upstreamCard, apply_url: "javascript:alert(1)" }] })).toThrow(SearchUpstreamError);
     expect(() => parseConsumerPage({ schema_version: "praxy-consumer-jobs-v1", results: [{ ...upstreamCard, apply_url: "https://127.0.0.1/private" }] })).toThrow(SearchUpstreamError);
