@@ -1,0 +1,51 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v6.1.0
+      - uses: astral-sh/setup-uv@v10.3.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+      - run: uv sync --extra test --locked
+      - run: uv run ruff check --select E,F,I openjobs tests
+      - run: uv run pytest -q
+      - run: uv run python -m compileall -q openjobs
+      - run: uv build
+        if: matrix.python-version == '3.12'
+      - run: docker build -t openjobs:ci .
+        if: matrix.python-version == '3.12'
+      - run: docker run --rm openjobs:ci openjobs import-json examples/demo.json --source demo
+        if: matrix.python-version == '3.12'
+
+  web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v6.1.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: docker build -t openjobs-web:ci web
+        working-directory: .

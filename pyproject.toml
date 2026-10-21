@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling>=1.25,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "praxy-openjobs"
+version = "0.1.0"
+description = "Self-hosted job search for people and AI agents"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn>=0.30,<1",
+  "httpx>=0.27,<1",
+  "mcp>=2,<3",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10", "ruff==0.17.1"]
+
+[project.scripts]
+openjobs = "openjobs.cli:main"
+openjobs-mcp = "openjobs.mcp_server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["openjobs"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

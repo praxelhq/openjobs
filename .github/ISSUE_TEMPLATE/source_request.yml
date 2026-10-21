@@ -1,0 +1,24 @@
+name: Source adapter proposal
+description: Propose an authorized job source integration
+title: "Source: "
+labels: [enhancement]
+body:
+  - type: input
+    id: source
+    attributes:
+      label: Source and official API documentation
+    validations:
+      required: true
+  - type: textarea
+    id: rights
+    attributes:
+      label: Rights and usage constraints
+      description: Explain who may index and display this feed, attribution, rate limits, and deletion requirements.
+    validations:
+      required: true
+  - type: textarea
+    id: fields
+    attributes:
+      label: Available job fields and stable ID
+    validations:
+      required: true

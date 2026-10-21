@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
+  <title id="title">OpenJobs</title>
+  <desc id="desc">A typographic OpenJobs banner: Find a job. See its source. Apply where it was posted.</desc>
+  <defs>
+    <linearGradient id="field" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c1621"/>
+      <stop offset="1" stop-color="#152531"/>
+    </linearGradient>
+    <linearGradient id="stroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9cecc6"/>
+      <stop offset="1" stop-color="#e5fd75"/>
+    </linearGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M 42 0 L 0 0 0 42" fill="none" stroke="#8fa8a6" stroke-opacity=".08" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="430" rx="26" fill="url(#field)"/>
+  <rect x="1" y="1" width="1198" height="428" rx="25" fill="none" stroke="#8eb1a8" stroke-opacity=".28"/>
+  <rect width="1200" height="430" rx="26" fill="url(#grid)"/>
+  <path d="M 817 0 L 1200 0 L 1200 430 L 1040 430 Z" fill="#c7f477" fill-opacity=".035"/>
+  <path d="M 935 0 L 1200 0 L 1200 340 Z" fill="#a4e8d0" fill-opacity=".04"/>
+  <g transform="translate(54 57)">
+    <circle cx="27" cy="27" r="26" fill="none" stroke="url(#stroke)" stroke-width="3"/>
+    <path d="M 18 36 L 36 18 M 24 18 H 36 V 30" fill="none" stroke="#e5fd75" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="71" y="35" fill="#d6e9e6" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="23" letter-spacing="1.4">OPENJOBS</text>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="54" y="176" fill="#f4f7f0" font-size="60" font-weight="700" letter-spacing="-2.5">Find a job.</text>
+    <text x="54" y="244" fill="#f4f7f0" font-size="60" font-weight="700" letter-spacing="-2.5">See its source.</text>
+    <text x="54" y="312" fill="#c4ef8b" font-size="60" font-weight="700" letter-spacing="-2.5">Apply at the source.</text>
+    <text x="56" y="376" fill="#a8c1bd" font-size="18" letter-spacing=".3">OPEN-SOURCE JOB DISCOVERY  ·  BUILT WITH PRAXY JOBS</text>
+  </g>
+  <g transform="translate(880 88)" font-family="Arial, Helvetica, sans-serif">
+    <circle cx="115" cy="115" r="108" fill="#162b32" stroke="#9ac8b1" stroke-opacity=".55" stroke-width="1.5"/>
+    <circle cx="115" cy="115" r="77" fill="none" stroke="#8ea8a4" stroke-opacity=".35" stroke-width="1.5" stroke-dasharray="4 8"/>
+    <circle cx="115" cy="115" r="41" fill="#c2ef88" fill-opacity=".14" stroke="#c2ef88" stroke-width="2"/>
+    <path d="M 95 135 L 135 95 M 107 95 H 135 V 123" fill="none" stroke="#d5fa91" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="115" cy="7" r="5" fill="#d5fa91"/>
+    <circle cx="223" cy="115" r="5" fill="#d5fa91"/>
+    <circle cx="115" cy="223" r="5" fill="#d5fa91"/>
+    <circle cx="7" cy="115" r="5" fill="#d5fa91"/>
+  </g>
+</svg>

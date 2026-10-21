@@ -1,0 +1,34 @@
+services:
+  openjobs:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - openjobs-data:/app/data
+    environment:
+      OPENJOBS_DB: /app/data/jobs.sqlite
+  demo-stage:
+    profiles: [demo]
+    build: .
+    command: ["python", "/app/scripts/serve_demo.py"]
+    ports:
+      - "127.0.0.1:8001:8000"
+    volumes:
+      - openjobs-demo-data:/app/data
+    environment:
+      OPENJOBS_DB: /app/data/jobs.sqlite
+      OPENJOBS_DEMO_MODE: fictional
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=2)"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+volumes:
+  openjobs-data:
+  openjobs-demo-data:
