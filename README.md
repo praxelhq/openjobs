@@ -1,14 +1,12 @@
 # OpenJobs
 
-### Find a job. See its source. Apply where it was posted.
+![OpenJobs by Praxy: Find a job, see its source, and apply at the source](docs/assets/openjobs-banner.svg)
 
-OpenJobs is an open-source job discovery project from [Praxy Jobs](https://praxyjobs.com/). We are building a free, anonymous search experience for real listings at `openjobs.praxyjobs.com`, linked from `praxyjobs.com/openjobs`. The public OpenJobs search site is **not deployed yet**. You can [search real jobs on Praxy today](https://praxy.me/jobs); that live consumer site is a separate product, not a deployment of this repository.
+OpenJobs is an open-source job discovery project from [Praxy Jobs](https://praxyjobs.com/). We are building a free, anonymous search experience with original application links at `openjobs.praxyjobs.com`, linked from `praxyjobs.com/openjobs`.
 
-[Search real jobs on Praxy](https://praxy.me/jobs) · [Run this repository](#try-openjobs-in-one-minute) · [Use the Praxy Jobs API](#search-live-jobs-from-the-cli-or-mcp) · [Contribute](CONTRIBUTING.md)
+[Search real jobs today ↗](https://praxy.me/jobs) · [Try the repository](#try-openjobs-in-one-minute) · [Use the Praxy Jobs API](#search-live-jobs-from-the-cli-or-mcp) · [Contribute](CONTRIBUTING.md)
 
-![OpenJobs brand banner: Find a job, see its source, and apply at the source](docs/assets/openjobs-banner.svg)
-
-> **Current release state — October 22, 2026:** This repository contains a working Python CLI, local REST API, MCP server, and the source of a new web app in [`web/`](web/README.md). The keyless sample contains eight clearly fictional jobs. Direct live CLI/MCP search needs your own activated Praxy Jobs API key. The OpenJobs website is **not deployed**: `praxyjobs.com/openjobs` currently returns 404 and the planned `openjobs.praxyjobs.com` hostname does not yet resolve. We will link it as live only after an anonymous search and original apply link are verified on the deployed site.
+> **Developer preview — October 22, 2026:** The CLI, local REST API, MCP server, and [`web/` source](web/README.md) work. The OpenJobs website is **not deployed yet**; [Praxy's existing search](https://praxy.me/jobs) is the live option. The keyless sample contains eight fictional jobs, and direct live CLI/MCP search needs an activated Praxy Jobs API key. See the [release checklist](docs/RELEASE_CHECKLIST.md) for the remaining website checks.
 
 ## What this project gives you
 
