@@ -2,23 +2,23 @@
 
 ![OpenJobs by Praxy: Find a job, see its source, and apply at the source](docs/assets/openjobs-banner.svg)
 
-OpenJobs is an open-source job discovery project from [Praxy Jobs](https://praxyjobs.com/). We are building a free, anonymous search experience with original application links at `openjobs.praxyjobs.com`, linked from `praxyjobs.com/openjobs`.
+OpenJobs is an open-source job discovery project from Praxy Jobs. We are building a free, anonymous search experience with original application links. The planned public routes are `openjobs.praxyjobs.com` and `praxyjobs.com/openjobs`.
 
-[Search real jobs today ↗](https://praxy.me/jobs) · [Try the repository](#try-openjobs-in-one-minute) · [Use the Praxy Jobs API](#search-live-jobs-from-the-cli-or-mcp) · [Contribute](CONTRIBUTING.md)
+[Try the local sample](#try-openjobs-in-one-minute) · [Explore the web app source](web/README.md) · [Read the API integration guide](#connect-the-cli-or-mcp-to-praxy-jobs) · [Contribute](CONTRIBUTING.md)
 
 ![Local OpenJobs search for product designer, showing real Praxy Jobs results and original application links](docs/assets/search-preview.jpg)
 
 *Local product preview using Praxy Jobs results. Public site deployment pending.*
 
-> **Developer preview — October 22, 2026:** The CLI, local REST API, MCP server, and [`web/` source](web/README.md) work. The OpenJobs website is **not deployed yet**; [Praxy's existing search](https://praxy.me/jobs) is the live option. The keyless sample contains eight fictional jobs, and direct live CLI/MCP search needs an activated Praxy Jobs API key. See the [release checklist](docs/RELEASE_CHECKLIST.md) for the remaining website checks.
+> **Developer preview:** The CLI, local REST API, MCP server, and [`web/` source](web/README.md) are available here. The public OpenJobs website has not been verified live. The keyless sample contains eight fictional jobs; searching hosted jobs from the CLI or MCP requires both an activated Praxy Jobs API key and an available API service. See the [release checklist](docs/RELEASE_CHECKLIST.md) for website launch checks.
 
 ## What this project gives you
 
 | If you want to… | Start here | Data boundary |
 | --- | --- | --- |
-| Find a real job now | [Praxy's live consumer search](https://praxy.me/jobs) | Public, anonymous browse on a separate deployed Praxy site. |
-| Search live jobs from your agent or terminal | [`search-praxy`](#search-live-jobs-from-the-cli-or-mcp) or MCP `search_praxy_jobs` | Your activated `PRAXY_JOBS_KEY`; one direct API page; no local storage. |
-| Build a local job search service | [Import the fictional sample](#try-openjobs-in-one-minute), then your permitted feed | SQLite index, REST, MCP, and inspectable import receipts. |
+| Try the project without a key | [Import the fictional sample](#try-openjobs-in-one-minute) | Eight fictional jobs in a local SQLite index, REST API, and MCP server. |
+| Build a local search service with your feed | [Import a permitted feed](#build-your-own-local-index) | SQLite index, REST, MCP, and inspectable import receipts. |
+| Connect your agent or terminal to hosted jobs | [`search-praxy`](#connect-the-cli-or-mcp-to-praxy-jobs) or MCP `search_praxy_jobs` | Activated `PRAXY_JOBS_KEY` and available Praxy Jobs API service; one direct API page, no local storage. |
 
 Each path keeps the original source URL. A source link and an observation time help you inspect a result; they do not guarantee that a job is still open or that its apply page still works.
 
@@ -41,7 +41,7 @@ curl -fsS 'http://127.0.0.1:8000/v1/sources/demo'
 
 The first request returns **two fictional remote engineer roles** from the eight-job sample. The second shows the import receipt: what the local index accepted, when, and how many jobs were new, changed, reopened, closed, or unchanged. A repeat import leaves the same eight jobs unchanged. This path needs no account, paid API key, or managed database. Browse the local OpenAPI page at [`/docs`](http://127.0.0.1:8000/docs). [API and MCP recipes](docs/API_AND_MCP.md) include pagination, source history, and a tested stdio client call.
 
-## Search live jobs from the CLI or MCP
+## Connect the CLI or MCP to Praxy Jobs
 
 Get `PRAXY_JOBS_KEY` from an **activated** [Praxy Jobs API plan](https://praxyjobs.com/docs/quickstart) and supply it to your process through a private environment or secret manager:
 
@@ -49,7 +49,7 @@ Get `PRAXY_JOBS_KEY` from an **activated** [Praxy Jobs API plan](https://praxyjo
 uv run openjobs search-praxy 'data engineer' --country IN --limit 10
 ```
 
-The command sends one HTTPS request to `https://praxyjobs.com/v1/jobs/search` and prints `{provider, jobs, total_estimate, next_cursor, limit}`. The local `openjobs-mcp` server offers the equivalent `search_praxy_jobs` tool. Use `--cursor` or the MCP `cursor` argument for the next page. Despite its name, `total_estimate` is the exact filtered count in that search snapshot.
+When the API service is available, the command sends one HTTPS request to `https://praxyjobs.com/v1/jobs/search` and prints `{provider, jobs, total_estimate, next_cursor, limit}`. The local `openjobs-mcp` server offers the equivalent `search_praxy_jobs` tool. Use `--cursor` or the MCP `cursor` argument for the next page. Despite its name, `total_estimate` is the exact filtered count in that search snapshot.
 
 This live path does **not** copy Praxy Jobs results into SQLite or expose them through OpenJobs' local `/v1/jobs` API. The repository bundles no API key or live job catalogue. The [live-search guide](docs/PRAXY_LIVE.md) covers filters, errors, key custody, attribution, and data terms.
 
